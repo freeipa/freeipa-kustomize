@@ -3,6 +3,8 @@ Makefile rules:
     Create the application into the cluster.
   ocp-delete
     Delete the application from the cluster.
+  ocp-build
+    Print out the configuration.
 
 Variables:
   OCP_CONFIG

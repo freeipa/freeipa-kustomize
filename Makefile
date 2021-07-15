@@ -40,6 +40,14 @@ ocp-create: check-kustomize
 	$(OCP_KUSTOMIZE) build config/rbac | oc create -f -
 	$(OCP_KUSTOMIZE) build $(OCP_CONFIG) | oc create -f - --as=freeipa
 
+
+.PHONY: ocp-build
+ocp-build: check-kustomize
+	$(MAKE) -C $(OCP_CONFIG) configure &> /dev/null
+	$(OCP_KUSTOMIZE) build config/rbac
+	$(OCP_KUSTOMIZE) build $(OCP_CONFIG)
+
+
 .PHONY: ocp-delete
 ocp-delete:
 	-$(OCP_KUSTOMIZE) build $(OCP_CONFIG) | oc delete -f - --as=freeipa
