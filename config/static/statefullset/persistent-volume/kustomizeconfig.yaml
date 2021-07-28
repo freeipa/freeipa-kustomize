@@ -19,8 +19,8 @@
 #     path: spec/passwordSecret
 
 varReference:
-  - kind: Pod
-    path: spec/containers/args
+  - kind: StatefulSet
+    path: spec/template/spec/containers/args
 
 images:
   - name: main
