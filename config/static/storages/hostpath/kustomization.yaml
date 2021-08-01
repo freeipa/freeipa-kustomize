@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../../single-pod
+  - pvc.yaml
 
 patchesStrategicMerge:
   - pod-main-patch.yaml

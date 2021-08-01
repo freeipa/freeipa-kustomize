@@ -6,8 +6,7 @@ metadata:
 spec:
   volumes:
   - name: data
-    hostPath:
-      path: /opt/freeipa/data
-      type: DirectoryOrCreate
+    persistentVolumeClaim:
+      claimName: freeipa
     emptyDir: null
 

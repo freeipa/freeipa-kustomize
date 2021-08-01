@@ -36,3 +36,12 @@ to prepare it.
   chcon -t container_file_t -l s0:c25,c10 /opt/freeipa/data
   ```
 
+---
+
+Finally you only have to execute the below from the repository base
+directory:
+
+```shell
+OCP_CONFIG=config/static/storages/hostpath SINGLEPOD_PASSWORD=Secret123 make ocp-create
+```
+
