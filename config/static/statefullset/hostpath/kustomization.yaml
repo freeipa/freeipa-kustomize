@@ -9,6 +9,7 @@ bases:
   - ../../single-pod/common/
 
 resources:
+  - pvc.yaml
   - statefulset.yaml
 
 # generators:

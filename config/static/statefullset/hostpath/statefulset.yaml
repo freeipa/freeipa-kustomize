@@ -138,8 +138,8 @@ spec:
         terminationMessagePolicy: File
         tty: true
         volumeMounts:
-        - mountPath: /data
-          name: data
+        - name: data
+          mountPath: /data
         - mountPath: /tmp
           name: systemd-tmp
         - mountPath: /sys
@@ -160,8 +160,8 @@ spec:
           name: systemd-var-dirsrv
       volumes:
       - name: data
-        hostPath:
-          path: /opt/freeipa/data
+        persistentVolumeClaim:
+          claimName: freeipa
       - hostPath:
           path: /sys
           type: DirectoryOrCreate
