@@ -33,7 +33,7 @@ to prepare it.
   from the containers.
 
   ```shell
-  chcon -t container_file_t -l s0:c25,c10 /opt/freeipa/data
+  chcon -t container_file_t /opt/freeipa/data
   ```
 
 ---
