@@ -19,4 +19,7 @@ patchesStrategicMerge:
       persistentVolumeClaim:
         claimName: freeipa
       emptyDir: null
+
+# The 'namespace' field is updated automatically by the Makefile file
+# Use OCP_NAMESPACE env variable for changing this
 namespace: freeipa
