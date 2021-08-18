@@ -9,37 +9,14 @@ namespace: freeipa
 #   - ../base
 
 resources:
-  - common/
-  - pod-main.yaml
+- common/
+- pod-main.yaml
 
 # generators:
 #   - 
 
 # transformers:
 #   -
-
-vars:
-- fieldref:
-    fieldPath: data.IPA_SERVER_HOSTNAME
-  name: IPA_SERVER_HOSTNAME
-  objref:
-    apiVersion: v1
-    kind: ConfigMap
-    name: config
-- fieldref:
-    fieldPath: data.IPA_SERVER_REALM
-  name: IPA_SERVER_REALM
-  objref:
-    apiVersion: v1
-    kind: ConfigMap
-    name: config
-- fieldref:
-    fieldPath: data.IPA_SERVER_CA_SUBJECT
-  name: IPA_SERVER_CA_SUBJECT
-  objref:
-    apiVersion: v1
-    kind: ConfigMap
-    name: config
 
 configurations:
 - kustomizeconfig.yaml
