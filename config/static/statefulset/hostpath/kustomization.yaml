@@ -3,11 +3,9 @@ kind: Kustomization
 
 namespace: freeipa
 
-
 resources:
-- pvc.yaml
-- statefulset.yaml
 - ../../single-pod/common/
+- statefulset.yaml
 
 # generators:
 #   - 
