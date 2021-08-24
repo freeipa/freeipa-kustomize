@@ -4,4 +4,4 @@ include ../../../../binaries.mk
 .PHONY: configure
 configure:
 	@$(KUSTOMIZE) edit set namespace $(OCP_NAMESPACE)
-	@make -C ../../single-pod/common/
+	@make -C ../../single-pod/common/ configure
