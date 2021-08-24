@@ -136,7 +136,7 @@ spec:
         tty: true
         volumeMounts:
         - mountPath: /data
-          name: data
+          name: freeipa
         - mountPath: /tmp
           name: systemd-tmp
         - mountPath: /sys
@@ -156,9 +156,6 @@ spec:
         - mountPath: /var/run/dirsrv
           name: systemd-var-dirsrv
       volumes:
-      - persistentVolumeClaim:
-          claimName: freeipa
-        name: data
       - hostPath:
           path: /sys
           type: DirectoryOrCreate
@@ -193,7 +190,7 @@ spec:
       name: freeipa
     spec:
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       storageClassName: "standard"
       resources:
         requests:
