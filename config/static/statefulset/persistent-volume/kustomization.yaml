@@ -3,11 +3,10 @@ kind: Kustomization
 
 namespace: freeipa
 
-bases:
-  - ../../single-pod/common/
 
 resources:
-  - statefulset.yaml
+- statefulset.yaml
+- ../../single-pod/common/
 
 # generators:
 #   - 
@@ -39,4 +38,4 @@ resources:
   #     fieldpath: data.IPA_SERVER_CA_SUBJECT
 
 configurations:
-  - "kustomizeconfig.yaml"
+- kustomizeconfig.yaml

@@ -1,14 +1,12 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: freeipa
 
-bases:
-  - ../../single-pod/common/
 
 resources:
-  - statefulset.yaml
+- statefulset.yaml
+- ../../single-pod/common/
 
 # generators:
 #   - 
@@ -40,4 +38,4 @@ resources:
   #     fieldpath: data.IPA_SERVER_CA_SUBJECT
 
 configurations:
-  - "kustomizeconfig.yaml"
+- kustomizeconfig.yaml
