@@ -21,9 +21,9 @@ spec:
       serviceAccount: freeipa
       automountServiceAccountToken: true
       containers:
-      - image: quay.io/freeipa/freeipa-openshift-container:freeipa-server
+      - name: main
+        image: quay.io/freeipa/freeipa-openshift-container:freeipa-server
         imagePullPolicy: IfNotPresent
-        name: main
         # SYSTEMD_LOG_LEVEL=debug INIT_WRAPPER=1 DEBUG_TRACE=2 PASSWORD=Secret123 NAMESPACE=freeipa SYSTEMD_OFFLINE=1 podman run -it quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         # podman run -it -e SYSTEMD_LOG_LEVEL=debug -e INIT_WRAPPER=1 -e DEBUG_TRACE=2 -e PASSWORD=Secret123 -e NAMESPACE=freeipa -e SYSTEMD_OFFLINE=1  quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         command:
@@ -138,7 +138,7 @@ spec:
         terminationMessagePolicy: File
         tty: true
         volumeMounts:
-        - name: data
+        - name: freeipa
           mountPath: /data
         - mountPath: /tmp
           name: systemd-tmp
@@ -159,9 +159,6 @@ spec:
         - mountPath: /var/run/dirsrv
           name: systemd-var-dirsrv
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: freeipa
       - hostPath:
           path: /sys
           type: DirectoryOrCreate
@@ -190,3 +187,15 @@ spec:
       - emptyDir:
           medium: Memory
         name: systemd-tmp
+
+  volumeClaimTemplates:
+  - metadata:
+      name: freeipa
+    spec:
+      volumeMode: Filesystem
+      volumeName: freeipa
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
