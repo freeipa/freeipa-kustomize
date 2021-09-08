@@ -35,3 +35,7 @@ the following layout:
          +- kustomization.yaml
          +- ... *.yaml   Infrastructure as a Code files.
 ```
+
+> For using a custom workload for the configurations, you only have to set
+> `OCP_IMAGE` to the container image reference you want to be deployed.
+

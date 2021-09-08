@@ -13,3 +13,11 @@ Variables:
   OCP_NAMESPACE
     The namespace where the resources will be created.
     By default `freeipa` is used is used if nothing is specified.
+  OCP_IMAGE
+    Allow to customize the workload to be used.
+    By default it is 'quay.io/freeipa/freeipa-openshift-container:freeipa-server'
+
+  > You can put all the variables that use the Makefile into 'private.mk'
+  > and the Makefile will load at the very beginning. If you want to let some
+  > variable to be overrided from the command line, use ' ?= ' operator.
+  > If you want avoid override from the command line, use ' := ' operator.

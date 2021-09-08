@@ -15,3 +15,5 @@
 varReference:
   - kind: StatefulSet
     path: spec/template/spec/containers/args
+  - kind: StatefulSet
+    path: spec/template/spec/containers/env/value

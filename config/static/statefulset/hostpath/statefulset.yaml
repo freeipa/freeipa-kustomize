@@ -22,12 +22,12 @@ spec:
       automountServiceAccountToken: true
       containers:
       - name: main
-        image: quay.io/freeipa/freeipa-openshift-container:freeipa-server
+        image: workload
         imagePullPolicy: IfNotPresent
         # SYSTEMD_LOG_LEVEL=debug INIT_WRAPPER=1 DEBUG_TRACE=2 PASSWORD=Secret123 NAMESPACE=freeipa SYSTEMD_OFFLINE=1 podman run -it quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         # podman run -it -e SYSTEMD_LOG_LEVEL=debug -e INIT_WRAPPER=1 -e DEBUG_TRACE=2 -e PASSWORD=Secret123 -e NAMESPACE=freeipa -e SYSTEMD_OFFLINE=1  quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         command:
-        - /usr/sbin/init
+        - /usr/local/sbin/init
         args:
         - no-exit
         - ipa-server-install
