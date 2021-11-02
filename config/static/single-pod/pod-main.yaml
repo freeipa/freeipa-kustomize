@@ -12,7 +12,6 @@ spec:
   dnsPolicy: ClusterFirst
   restartPolicy: Always
   serviceAccount: freeipa
-  automountServiceAccountToken: true
   containers:
   - image: workload
     imagePullPolicy: IfNotPresent
@@ -37,23 +36,27 @@ spec:
     - --no-ntp
     - --no-sshd
     - --no-ssh
-    - --verbose
+    # - --verbose
     # envFrom:
     #   - name: IPA_SERVER_HOSTNAME
     #     configMapRef:
     #       name: config
           
     env:
-    - name: KRB5_TRACE
-      value: /dev/console
-    - name: SYSTEMD_LOG_LEVEL
-      value: debug
-    - name: SYSTEMD_LOG_COLOR
-      value: "no"
-    - name: INIT_WRAPPER
+    - name: KUBERNETES
       value: "1"
-    - name: DEBUG_TRACE
-      value: "2"
+    # - name: KRB5_TRACE
+    #   value: /dev/console
+    # - name: SYSTEMD_LOG_LEVEL
+    #   value: debug
+    # - name: SYSTEMD_LOG_COLOR
+    #   value: "no"
+    # - name: INIT_WRAPPER
+    #   value: "1"
+    # - name: DEBUG_TRACE
+    #   value: "1"
+    # - name: DEBUG
+    #   value: "1"
     - name: PASSWORD
       valueFrom:
         secretKeyRef:
@@ -62,8 +65,8 @@ spec:
           optional: false
     - name: IPA_SERVER_HOSTNAME
       value: $(IPA_SERVER_HOSTNAME)
-    - name: container_uuid
-      value: b01e51533bce49ce92b6bd4680edd46e
+    # - name: container_uuid
+    #   value: b01e51533bce49ce92b6bd4680edd46e
     - name: SYSTEMD_OFFLINE
       value: "1"
     - name: SYSTEMD_NSPAWN_API_VFS_WRITABLE

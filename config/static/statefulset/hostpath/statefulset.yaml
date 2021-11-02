@@ -51,30 +51,36 @@ spec:
         #       name: config
               
         env:
-        - name: KRB5_TRACE
-          value: /dev/console
-        - name: SYSTEMD_LOG_LEVEL
-          value: debug
-        - name: SYSTEMD_LOG_COLOR
-          value: "no"
-        - name: INIT_WRAPPER
-          value: "1"
-        - name: DEBUG_TRACE
-          value: "2"
+        # - name: KRB5_TRACE
+        #   value: /dev/console
+        # - name: SYSTEMD_LOG_LEVEL
+        #   value: debug
+        # - name: SYSTEMD_LOG_COLOR
+        #   value: "no"
+        # - name: INIT_WRAPPER
+        #   value: "1"
+        # - name: DEBUG_TRACE
+        #   value: "2"
         - name: PASSWORD
           valueFrom:
             secretKeyRef:
-              key: IPA_SERVER_PASSWORD
               name: freeipa
+              key: IPA_SERVER_PASSWORD
               optional: false
         - name: NAMESPACE
-          value: freeipa
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: IPA_SERVER_HOSTNAME
-          value: $(IPA_SERVER_HOSTNAME)
-        - name: container_uuid
-          value: b01e51533bce49ce92b6bd4680edd46e
+          # value: $(IPA_SERVER_HOSTNAME)
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: IPA_SERVER_HOSTNAME
+        # - name: container_uuid
+        #   value: b01e51533bce49ce92b6bd4680edd46e
         - name: SYSTEMD_OFFLINE
-          value: "1"
+          value: "0"
         - name: SYSTEMD_NSPAWN_API_VFS_WRITABLE
           value: network
         ports:

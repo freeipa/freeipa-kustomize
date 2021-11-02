@@ -37,7 +37,6 @@ spec:
           drop:
             - NET_RAW
             - SYS_CHROOT
-            - FSETID
             - AUDIT_CONTROL
             - AUDIT_READ
             - BLOCK_SUSPEND
@@ -68,6 +67,7 @@ spec:
             - "DAC_OVERRIDE"
             - "SETUID"
             - "SETGID"
+            - "FSETID"
             - "KILL"
             - "NET_BIND_SERVICE"
 
@@ -81,7 +81,6 @@ spec:
 
       #       - "NET_RAW"
       #       - "SYS_CHROOT"
-      #       - "FSETID"
 
       #       # No default capabilities
       #       - "AUDIT_CONTROL"
