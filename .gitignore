@@ -2,3 +2,6 @@
 config/static/single-pod/common/env.properties
 config/static/single-pod/common/secrets.properties
 
+# Ignore custom private variables
+private.mk
+
