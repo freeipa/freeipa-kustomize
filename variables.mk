@@ -3,7 +3,7 @@ OCP_CONFIG ?= config/static/single-pod
 OCP_IMAGE_BASE ?= quay.io/freeipa
 OCP_IMAGE_NAME ?= freeipa-operator-container
 OCP_IMAGE_TAG ?= freeipa-server
-OCP_IMAGE := $(OCP_IMAGE_BASE)/$(OCP_IMAGE_NAME):$(OCP_IMAGE_TAG)
+OCP_IMAGE ?= $(OCP_IMAGE_BASE)/$(OCP_IMAGE_NAME):$(OCP_IMAGE_TAG)
 OCP_NAMESPACE ?= freeipa
 
 .PHONY: dump-vars

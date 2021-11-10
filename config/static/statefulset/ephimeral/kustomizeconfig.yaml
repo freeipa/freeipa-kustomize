@@ -15,8 +15,3 @@
 varReference:
   - kind: StatefulSet
     path: spec/template/spec/containers/args
-
-images:
-  - name: main
-    newName: quay.io/freeipa/freeipa-openshift-container
-    newTag: freeipa-server

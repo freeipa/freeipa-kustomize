@@ -1,3 +1,7 @@
+ifeq (private.mk,$(shell ls -1 private.mk 2>/dev/null))
+include private.mk
+endif
+
 # READ THIS BEFORE CHANGE
 #
 # - Use the suffix 'OCP_' for new variables to be consistent.

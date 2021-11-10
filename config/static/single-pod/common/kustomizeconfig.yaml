@@ -21,10 +21,3 @@
 varReference:
   - kind: Route
     path: spec/host
-  - kind: Pod
-    path: spec/containers/args
-
-images:
-  - name: main
-    newName: quay.io/freeipa/freeipa-openshift-container
-    newTag: freeipa-server
