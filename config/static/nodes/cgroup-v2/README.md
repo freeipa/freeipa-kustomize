@@ -13,8 +13,10 @@ convenience to do the below:
 oc create -f machine-config-cgroup-v2-worker.yaml
 ```
 
-However, if you are using a SNO cluster, you need to apply the configuration
-to the control plane nodes (master) by:
+If in the future we move the workload to the control plane, then we
+could need to set master node too to use cgroup v2. If you are using a
+SNO (Single Node Openshift), you will need to apply the configuration to
+the master node too:
 
 ```shell
 oc create -f machine-config-cgroup-v2-master.yaml
