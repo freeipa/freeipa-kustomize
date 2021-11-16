@@ -1,0 +1,18 @@
+---
+# https://github.com/openshift/machine-config-operator/tree/master/docs
+# https://frasertweedale.github.io/blog-redhat/posts/2021-03-30-openshift-cgroupv2-systemd.html
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  name: 99-enable-cgroupv2-masters
+  labels:
+    machineconfiguration.openshift.io/role: master
+spec:
+  kernelArguments:
+    # https://www.freedesktop.org/software/systemd/man/systemd.html#Kernel%20Command%20Line
+    # https://www.freedesktop.org/software/systemd/man/systemd.html#systemd.unified_cgroup_hierarchy
+    - systemd.unified_cgroup_hierarchy=1
+    # https://man7.org/linux/man-pages/man7/cgroups.7.html
+    - cgroup_no_v1=all
+    # https://facebookmicrosites.github.io/psi/docs/overview
+    - psi=1
