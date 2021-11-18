@@ -42,5 +42,5 @@ configurations:
 
 images:
 - name: workload
-  newName: quay.io/freeipa/freeipa-openshift-container
-  newTag: latest
+  newName: quay.io/avisied0/freeipa-openshift-container
+  newTag: dev-8158ad3

@@ -22,7 +22,7 @@ spec:
       automountServiceAccountToken: true
       containers:
       - image: workload
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: main
         # SYSTEMD_LOG_LEVEL=debug INIT_WRAPPER=1 DEBUG_TRACE=2 PASSWORD=Secret123 NAMESPACE=freeipa SYSTEMD_OFFLINE=1 podman run -it quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         # podman run -it -e SYSTEMD_LOG_LEVEL=debug -e INIT_WRAPPER=1 -e DEBUG_TRACE=2 -e PASSWORD=Secret123 -e NAMESPACE=freeipa -e SYSTEMD_OFFLINE=1  quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
@@ -44,23 +44,23 @@ spec:
         - --no-ntp
         - --no-sshd
         - --no-ssh
-        - --verbose
+        # - --verbose
         # envFrom:
         #   - name: IPA_SERVER_HOSTNAME
         #     configMapRef:
         #       name: config
               
         env:
-        - name: KRB5_TRACE
-          value: /dev/console
-        - name: SYSTEMD_LOG_LEVEL
-          value: debug
-        - name: SYSTEMD_LOG_COLOR
-          value: "no"
-        - name: INIT_WRAPPER
-          value: "1"
-        - name: DEBUG_TRACE
-          value: "2"
+        # - name: KRB5_TRACE
+        #   value: /dev/console
+        # - name: SYSTEMD_LOG_LEVEL
+        #   value: debug
+        # - name: SYSTEMD_LOG_COLOR
+        #   value: "no"
+        # - name: INIT_WRAPPER
+        #   value: "1"
+        # - name: DEBUG_TRACE
+        #   value: "2"
         - name: PASSWORD
           valueFrom:
             secretKeyRef:
@@ -142,20 +142,27 @@ spec:
         - mountPath: /var/run
           name: systemd-var-run
         - mountPath: /var/run/dirsrv
-          name: systemd-var-dirsrv
+          name: dirsrv-var-dirsrv
+        # This fix 'Error - Problem accessing the lockfile /var/lock/dirsrv/slapd-APPS-AVISIEDO125-IDMOCP-LAB-ENG-RDU2-REDHAT-COM/lock'
+        - mountPath: /var/lock/dirsrv
+          name: dirsrv-var-lock-dirsrv
+          
       volumes:
       - emptyDir:
           medium: Memory
         name: systemd-var-run
       - emptyDir:
           medium: Memory
-        name: systemd-var-dirsrv
-      - emptyDir:
-          medium: Memory
         name: systemd-run-rpcbind
       - emptyDir:
           medium: Memory
         name: systemd-tmp
+      - emptyDir:
+          medium: Memory
+        name: dirsrv-var-dirsrv
+      - emptyDir:
+          medium: Memory
+        name: dirsrv-var-lock-dirsrv
 
   volumeClaimTemplates:
   - metadata:

@@ -146,6 +146,9 @@ spec:
           name: systemd-var-run
         - mountPath: /var/run/dirsrv
           name: systemd-var-dirsrv
+        # This fix 'Error - Problem accessing the lockfile /var/lock/dirsrv/slapd-APPS-AVISIEDO125-IDMOCP-LAB-ENG-RDU2-REDHAT-COM/lock'
+        - mountPath: /var/lock/dirsrv
+          name: dirsrv-var-lock-dirsrv
       volumes:
       - name: data
         emptyDir: {}
@@ -161,3 +164,6 @@ spec:
       - emptyDir:
           medium: Memory
         name: systemd-tmp
+      - emptyDir:
+          medium: Memory
+        name: dirsrv-var-lock-dirsrv
