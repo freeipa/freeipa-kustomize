@@ -4,9 +4,9 @@
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
-  name: 99-enable-cgroupv2-workers
+  name: 99-enable-cgroupv2-${ROLE}
   labels:
-    machineconfiguration.openshift.io/role: worker
+    machineconfiguration.openshift.io/role: ${ROLE}
 spec:
   kernelArguments:
     # https://www.freedesktop.org/software/systemd/man/systemd.html#Kernel%20Command%20Line
