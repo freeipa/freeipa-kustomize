@@ -32,7 +32,6 @@ spec:
         capabilities:
           drop:
             # Default capabilities anyuid
-            - "FSETID"
             - "NET_RAW"
             - "SYS_CHROOT"
 
@@ -72,6 +71,7 @@ spec:
             - "DAC_OVERRIDE"
             - "NET_BIND_SERVICE"
             - "KILL"
+            - "FSETID"
 
             # No default capabilities
             - "SYS_ADMIN"
@@ -213,7 +213,6 @@ spec:
             - "SYS_CHROOT"
             # - "SETPCAP"
             # - "SETFCAP"
-            - "FSETID"
 
             # No default capabilities
             - "AUDIT_CONTROL"
@@ -254,7 +253,7 @@ spec:
 
             - "SETPCAP"
             - "SETFCAP"
-            # - "FSETID"
+            - "FSETID"
             # - "NET_RAW"
             # - "SYS_CHROOT"
 

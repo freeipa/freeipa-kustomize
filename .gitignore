@@ -5,3 +5,7 @@ config/static/single-pod/common/secrets.properties
 # Ignore custom private variables
 private.mk
 
+# Ignore generated files for poc incubator/012-fix-to-fresh-images
+incubator/012-fix-to-fresh-images/user/configmap.yaml
+incubator/012-fix-to-fresh-images/user/pod.yaml
+incubator/012-fix-to-fresh-images/user/route.yaml

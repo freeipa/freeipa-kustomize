@@ -12,7 +12,6 @@ spec:
   dnsPolicy: ClusterFirst
   restartPolicy: Always
   serviceAccount: freeipa
-  automountServiceAccountToken: true
   containers:
   - image: workload
     imagePullPolicy: IfNotPresent
@@ -37,23 +36,27 @@ spec:
     - --no-ntp
     - --no-sshd
     - --no-ssh
-    - --verbose
+    # - --verbose
     # envFrom:
     #   - name: IPA_SERVER_HOSTNAME
     #     configMapRef:
     #       name: config
           
     env:
-    - name: KRB5_TRACE
-      value: /dev/console
-    - name: SYSTEMD_LOG_LEVEL
-      value: debug
-    - name: SYSTEMD_LOG_COLOR
-      value: "no"
-    - name: INIT_WRAPPER
+    - name: KUBERNETES
       value: "1"
-    - name: DEBUG_TRACE
-      value: "2"
+    # - name: KRB5_TRACE
+    #   value: /dev/console
+    # - name: SYSTEMD_LOG_LEVEL
+    #   value: debug
+    # - name: SYSTEMD_LOG_COLOR
+    #   value: "no"
+    # - name: INIT_WRAPPER
+    #   value: "1"
+    # - name: DEBUG_TRACE
+    #   value: "1"
+    # - name: DEBUG
+    #   value: "1"
     - name: PASSWORD
       valueFrom:
         secretKeyRef:
@@ -62,8 +65,8 @@ spec:
           optional: false
     - name: IPA_SERVER_HOSTNAME
       value: $(IPA_SERVER_HOSTNAME)
-    - name: container_uuid
-      value: b01e51533bce49ce92b6bd4680edd46e
+    # - name: container_uuid
+    #   value: b01e51533bce49ce92b6bd4680edd46e
     - name: SYSTEMD_OFFLINE
       value: "1"
     - name: SYSTEMD_NSPAWN_API_VFS_WRITABLE
@@ -90,6 +93,21 @@ spec:
         - DAC_OVERRIDE
         - SETUID
         - SETGID
+        # Without FSETID the ccache files created has the permissions below:
+        #   -rw-rw----. 1 apache apache 3464 Nov 23 21:00 host~freeipa.apps.crc.testing@APPS.CRC.TESTING-z0WzhM
+        # With FSETID the ccache files created has the permissions below:
+        #   -rw-------. 1 ipaapi ipaapi 5068 Nov 23 21:12 host~freeipa.apps.crc.testing@APPS.CRC.TESTING-YQgWH4
+        # In both cases the /run/ipa/ccaches directory has the permissions: drwsrws---+
+        #
+        # The running process has effective uid:gid=ipaapi:ipaapi so FSETID makes the files
+        # to inherit the owner and group from the directory because the set-user-id and set-group-id
+        # are set for the directory that contain them.
+        #
+        # Without FSETID capability the ccache files created are not accessible by the wsgi process
+        # evoking the kerberos authentication to fail. It evoked sssd client installation step to
+        # fail too as in the step is invoked a RPC method on the wsgi service that has to be
+        # authenticated.
+        - FSETID
         - KILL
         - NET_BIND_SERVICE
         - SETPCAP
@@ -99,7 +117,6 @@ spec:
         drop:
         - NET_RAW
         - SYS_CHROOT
-        - FSETID
         - AUDIT_CONTROL
         - AUDIT_READ
         - BLOCK_SUSPEND
