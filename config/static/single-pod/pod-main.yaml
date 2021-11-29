@@ -149,7 +149,7 @@ spec:
     lifecycle:
       preStop:
         exec:
-          command: ["kill", "-s", "SIGRTMIN+3", "1"]
+          command: ["kill", "-RTMIN+3", "1"]
     tty: true
     volumeMounts:
     - mountPath: /data
