@@ -6,6 +6,5 @@ POOL ?= worker master
 .PHONY: configure
 configure:
 	@make -C ../userns-subid configure
-	@make -C ../cri-o configure
-	@make -C ../runc configure
-	#@make -C ../cgroup-v2 configure
+	@make -C ../rpm-overrides configure
+	@make -C ../cgroup-v2 configure

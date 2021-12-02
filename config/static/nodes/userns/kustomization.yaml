@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
 - "../cgroup-v2"
-- "../runc"
-- "../cri-o"
+- "../rpm-overrides"
 - "../userns-subid"

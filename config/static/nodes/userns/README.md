@@ -15,13 +15,14 @@ POOL="worker" make -C config/static/nodes/userns configure
 kustomizebuild build config/static/nodes/userns | oc create -f -
 ```
 
-> You can put POOL variable at `private.mk` file, but do not forget to
-> export the variable so that it is available when invoking other Makefile
-> files:
+> You can put `POOL` and `RPM_PACKAGES` variables at `private.mk` file, but do
+> not forget to export the variable so that it is available when invoking other
+> Makefile files:
 >
 > ```Makefile
-> POOL ?= worker
-> export POOL
+> POOL ?= master
+> RPM_PACKAGES ?= https://ftweedal.fedorapeople.org/runc-1.0.0-990.rhaos4.8.gitcd80260.el8.x86_64.rpm make configure
+> export POOL RPM_PACKAGES
 > ```
 
-By default, the configuration creates is for worker and master roles.
+By default, the configuration creates it for worker and master roles.
