@@ -25,3 +25,6 @@ config/static/nodes/userns-subid/config-userns-worker.yaml
 
 # Ignore generated files for config/static/nodes/cgroup-v2
 config/static/nodes/cgroup-v2/machine-config-cgroup-v2-*.yaml
+
+# Ignore generated files for config/static/nodes/rpm-overrides
+config/static/nodes/rpm-overrides/install-custom-*.yaml

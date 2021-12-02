@@ -3,7 +3,7 @@
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
-  name: 99-install-custom-cri-o-${ROLE}
+  name: 99-install-custom-${RPM_PKG_NAME}-${ROLE}
   labels:
     machineconfiguration.openshift.io/role: ${ROLE}
 spec:
@@ -12,19 +12,19 @@ spec:
       version: "3.2.0"
     systemd:
       units:
-      - name: "install-cri-o.service"
+      - name: "install-${RPM_PKG_NAME}.service"
         enabled: true
         # For getting the logs run:
-        # $ oc adm node-logs node/NODE -u install-cri-o
+        # $ oc adm node-logs node/NODE -u install-runc
         contents: |
           [Unit]
-          Description=Install custom cri-o
+          Description=Install custom runc
           # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
-          After=network-online.target
+          After=network-online.target rpm-ostreed.service
 
           [Service]
           Type=oneshot
-          ExecStart=bash -c 'rpm -q "$( rpm -q ${RPM_CRI_O} )" || rpm-ostree override replace --reboot "${RPM_CRI_O}"'
+          ExecStart=bash -c 'rpm -q "${RPM_PKG}" || rpm-ostree override replace --reboot "${RPM_URL}"'
 
           [Install]
           WantedBy=multi-user.target
