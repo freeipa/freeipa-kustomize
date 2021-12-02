@@ -5,6 +5,7 @@ POOL ?= worker master
 
 .PHONY: configure
 configure:
+	git checkout kustomization.yaml
 	@for role in $(POOL); do \
 		echo "Generating config-userns-$${role}.yaml" ; \
 		CRIO_USERNS_CONF_BASE64="$(CRIO_USERNS_CONF_BASE64)" \
@@ -12,4 +13,5 @@ configure:
 		SUBGID_BASE64="$(SUBGID_BASE64)" \
 		ROLE="$${role}" \
 		envsubst < config-userns.yaml.envsubst > config-userns-$${role}.yaml ; \
+		echo "- config-userns-$${role}.yaml" >> kustomization.yaml ; \
 	done
