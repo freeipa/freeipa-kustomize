@@ -22,13 +22,15 @@ spec:
           # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
           After=network-online.target
           # After=network-online.target
-          StartLimitIntervalSec=10
-          StartLimitBurst=30
+          StartLimitIntervalSec=300
+          StartLimitBurst=10
 
           [Service]
           Type=simple
           ExecStart=bash -c 'rpm -q "${RPM_PKG}" || rpm-ostree override replace --reboot "${RPM_URL}"'
           Restart=on-failure
+          RestartSec=10s
+
 
           [Install]
           WantedBy=multi-user.target
