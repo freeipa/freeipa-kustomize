@@ -26,7 +26,6 @@ spec:
           StartLimitBurst=10
 
           [Service]
-          Type=simple
           ExecStart=bash -c 'rpm -q "${RPM_PKG}" || rpm-ostree override replace --reboot "${RPM_URL}"'
           Restart=on-failure
           RestartSec=10s
