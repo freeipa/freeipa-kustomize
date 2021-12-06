@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-signals
+  labels:
+    name: demo-signals
+spec:
+  containers:
+  - name: demo-signals
+    image: workload
+    imagePullPolicy: "Always"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    command:
+      - "/demo-signal.sh"
+
+
