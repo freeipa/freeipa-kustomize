@@ -10,4 +10,7 @@ trap trap_sigterm SIGTERM
 trap trap_sigusr1 SIGUSR1
 trap trap_sigrtmin3 "SIGRTMIN+3"
 
-while true; do sleep 1; done
+while true; do
+    echo -n "."
+    sleep 1
+done
