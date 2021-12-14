@@ -45,10 +45,11 @@ kustomize build | oc create -f -
 
 We can specify more packages just adding values to `RPM_PACKAGES` variable.
 
-If you are using a SNO cluster, you could want to monitor the execution by:
+If you are using a SNO cluster by using CodeReadyContainers, you could want to
+monitor the execution by:
 
 ```shell
-ssh -i ~/.crc/machines/id_ecdsa.pub core@192.168.130.11 journaltctl -u install-PKG_NAME.service
+ssh -i ~/.crc/machines/crc/id_ecdsa core@192.168.130.11 journalctl -u install-PKG_NAME.service
 ```
 
 As the above is more responsive than `oc adm node-logs nodes/NODE -u install-PKG_NAME.service`.
