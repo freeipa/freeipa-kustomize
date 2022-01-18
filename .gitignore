@@ -20,11 +20,13 @@ config/static/nodes/runc/install-custom-runc-*.yaml
 config/static/nodes/cri-o/install-custom-cri-o-*.yaml
 
 # Ignore generated files for config/static/nodes/userns-subid
-config/static/nodes/userns-subid/config-userns-master.yaml 
-config/static/nodes/userns-subid/config-userns-worker.yaml
+config/static/nodes/userns-subid/config-userns-*.yaml
+config/static/nodes/userns-subid/kustomization.yaml
 
 # Ignore generated files for config/static/nodes/cgroup-v2
 config/static/nodes/cgroup-v2/machine-config-cgroup-v2-*.yaml
+config/static/nodes/cgroup-v2/kustomization.yaml
 
 # Ignore generated files for config/static/nodes/rpm-overrides
 config/static/nodes/rpm-overrides/install-custom-*.yaml
+config/static/nodes/rpm-overrides/kustomization.yaml

@@ -5,7 +5,7 @@ POOL ?= worker master
 
 .PHONY: configure
 configure:
-	git checkout kustomization.yaml
+	@printf "%s\n%s\n%s\n" "apiVersion: kustomize.config.k8s.io/v1beta1" "kind: Kustomization" "resources:" > kustomization.yaml
 	@for role in $(POOL); do \
 		echo "Generating config-userns-$${role}.yaml" ; \
 		CRIO_USERNS_CONF_BASE64="$(CRIO_USERNS_CONF_BASE64)" \
