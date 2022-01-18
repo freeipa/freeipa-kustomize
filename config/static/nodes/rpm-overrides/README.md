@@ -7,18 +7,18 @@ installing a RPM package. By default it installs the package for "worker" and
 Basic usage:
 
 ```shell
-export RPM_PACKAGES="https://..."
-make -C config/static/nodes/runc configure
-kustomize build config/static/nodes/runc | oc create -f -
+export RPM_PACKAGES='"https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm" "https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm"'
+make -C config/static/nodes/rpm-overrides configure
+kustomize build config/static/nodes/rpm-overrides | oc create -f -
 ```
 
 For installing only in one specific pool:
 
 ```shell
-export RPM_PACKAGES="https://..."
+export RPM_PACKAGES='"https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm" "https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm"'
 export POOL="master"
-make -C config/static/nodes/runc configure
-kustomize build config/static/nodes/runc | oc create -f -
+make -C config/static/nodes/rpm-overrides configure
+kustomize build config/static/nodes/rpm-overrides | oc create -f -
 ```
 
 > Note that if you are putting the environment variables at `private.mk` file
@@ -39,7 +39,7 @@ kustomize build config/static/nodes/runc | oc create -f -
 The below install a custom runc package into all the nodes.
 
 ```shell
-POOL="master worker" RPM_PACKAGES=https://ftweedal.fedorapeople.org/runc-1.0.0-990.rhaos4.8.gitcd80260.el8.x86_64.rpm make configure
+POOL="master worker" RPM_PACKAGES='"https://ftweedal.fedorapeople.org/runc-1.0.0-990.rhaos4.8.gitcd80260.el8.x86_64.rpm"' make configure
 kustomize build | oc create -f -
 ```
 
@@ -53,4 +53,3 @@ ssh -i ~/.crc/machines/crc/id_ecdsa core@192.168.130.11 journalctl -u install-PK
 ```
 
 As the above is more responsive than `oc adm node-logs nodes/NODE -u install-PKG_NAME.service`.
-

@@ -1,13 +1,15 @@
+# Machine pool names which the configuration will be applied on
 POOL ?= worker master
+# List of rpm packages to be installed; they are a list of URLs separated by spaces
+# eg
+#   RPM_PACKAGES ?= "https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm" "https://ftweedal.fedorapeople.org/runc-1.0.0-992.rc95.module+el8.4.0+11650+50a9f308.x86_64.rpm"
 RPM_PACKAGES ?=
-# RPM_RUNC ?= https://ftweedal.fedorapeople.org/runc-1.0.0-990.rhaos4.8.gitcd80260.el8.x86_64.rpm
-# RPM_RUNC_PKG_NAME ?= runc-1.0.0-990.rhaos4.8.gitcd80260.el8
 
 .PHONY: configure
 configure:
 ifneq (,$(RPM_PACKAGES))
-	git checkout kustomization.yaml
-	for role in $(POOL); do \
+	@printf "%s\n%s\n%s\n" "apiVersion: kustomize.config.k8s.io/v1beta1" "kind: Kustomization" "resources:" > kustomization.yaml
+	@for role in $(POOL); do \
 		for rpm in $(RPM_PACKAGES); do \
 			RPM_PKG_NAME="$${rpm##**/}" ; \
 			RPM_PKG_NAME="$${RPM_PKG_NAME%%-[0123456789]*.rpm}" ; \
@@ -21,6 +23,5 @@ ifneq (,$(RPM_PACKAGES))
 			envsubst < install-custom-rpm.yaml.envsubst > install-custom-$${role}-$${RPM_PKG_NAME}.yaml \
 			&& echo "- install-custom-$${role}-$${RPM_PKG_NAME}.yaml" >> kustomization.yaml ; \
 		done; \
-	done 
+	done
 endif
-
