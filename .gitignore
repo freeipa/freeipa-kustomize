@@ -10,12 +10,6 @@ incubator/012-fix-to-fresh-images/user/configmap.yaml
 incubator/012-fix-to-fresh-images/user/pod.yaml
 incubator/012-fix-to-fresh-images/user/route.yaml
 
-# Ignore generated files for config/static/nodes/cgroup-v2
-config/static/nodes/cgroup-v2/machine-config-cgroup-v2-*.yaml
-
-# Ignore generated files for config/static/nodes/runc
-config/static/nodes/runc/install-custom-runc-*.yaml
-
 # Ignore generated files for config/static/nodes/cri-o
 config/static/nodes/cri-o/install-custom-cri-o-*.yaml
 
