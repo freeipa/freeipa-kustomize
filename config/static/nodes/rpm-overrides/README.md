@@ -1,8 +1,9 @@
-# Setting the runc environment
+# Installing custom RPM packages
 
-This configuration install into the pool indicated a custom runc version by
-installing a RPM package. By default it installs the package for "worker" and
-"master" nodes, but we can change that behavior.
+This configuration allow to install custom RPM packages into the OPC nodes
+by specifying a list of URLs where the packages can be found. By default it
+installs the package for "worker" and "master" nodes, but we can change that
+behavior.
 
 Basic usage:
 
