@@ -24,3 +24,6 @@ kustomize build config/static/nodes/userns | oc delete -f -
 > But the runc and cri-o rpm packages are not restored
 
 This overlay include cgroup-v2, userns-subid, runc and cri-o overlays.
+
+This set of overlays are based on Fraser's investigation explained at
+[Demo: namespaced systemd workloads on OpenShift](https://frasertweedale.github.io/blog-redhat/posts/2021-07-22-openshift-systemd-workload-demo.html).
