@@ -60,10 +60,16 @@ spec:
         #   value: "1"
         # - name: DEBUG_TRACE
         #   value: "2"
-        - name: PASSWORD
+        - name: IPA_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: IPA_SERVER_PASSWORD
+              key: IPA_ADMIN_PASSWORD
+              name: freeipa
+              optional: false
+        - name: IPA_DM_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: IPA_DM_PASSWORD
               name: freeipa
               optional: false
         - name: NAMESPACE
