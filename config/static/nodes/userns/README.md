@@ -26,3 +26,7 @@ kustomizebuild build config/static/nodes/userns | oc create -f -
 > ```
 
 By default, the configuration creates it for worker and master roles.
+
+## References
+
+- Fraser's blog: [Demo: namespaced systemd workloads on OpenShift](https://frasertweedale.github.io/blog-redhat/posts/2021-07-22-openshift-systemd-workload-demo.html).

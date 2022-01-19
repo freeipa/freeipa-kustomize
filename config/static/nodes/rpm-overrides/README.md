@@ -54,3 +54,7 @@ ssh -i ~/.crc/machines/crc/id_ecdsa core@192.168.130.11 journalctl -u install-PK
 ```
 
 As the above is more responsive than `oc adm node-logs nodes/NODE -u install-PKG_NAME.service`.
+
+## References
+
+- Fraser's blog: [Demo: namespaced systemd workloads on OpenShift](https://frasertweedale.github.io/blog-redhat/posts/2021-07-22-openshift-systemd-workload-demo.html).

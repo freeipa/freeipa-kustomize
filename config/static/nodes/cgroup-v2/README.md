@@ -27,3 +27,6 @@ POOL="master" make -C config/static/nodes/cgroup-v2 configure
 kustomize build config/static/nodes/cgroup-v2/ | oc create -f
 ```
 
+## References
+
+- Fraser's blog: [Demo: namespaced systemd workloads on OpenShift](https://frasertweedale.github.io/blog-redhat/posts/2021-07-22-openshift-systemd-workload-demo.html).
