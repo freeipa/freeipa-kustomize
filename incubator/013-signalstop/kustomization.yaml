@@ -1,0 +1,17 @@
+# https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/
+#
+# Proof of Concept for reading namespace info and inject it in the ConfigMap
+#
+# Quick Start:
+#   oc kustomize . | oc create -
+#   oc describe pod/demo-signals
+#   oc kustomize . | oc delete -
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- pod.yaml
+images:
+- name: workload
+  newName: quay.io/avisied0/demos
+  newTag: signals-aarch64

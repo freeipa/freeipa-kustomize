@@ -15,3 +15,7 @@ Contents:
 - **[003-scc-and-caps](003-scc-and-caps/README.md)**: Security Container Constraints and capabilities.
 - **[005-deploy-in-one-pod](005-deploy-in-one-pod/README.md)**:
   Proof of concept which deploy a Pod with Freeipa and expose the web interface.
+- **[013-signalstop](013-signalstop/README.md)**:
+  Proof of concept for testing SIGSTOP instruction by using `kind` and `podman` (or `docker`),
+  to check if the STOPSIGNAL instruction is propagated as expected. This complete the
+  blog article at [Stopping systemd workloads in Openshift](https://avisiedo.github.io/docs/stopping-systemd-workloads-in-openshift.html#stopping-systemd-workloads-in-openshift).

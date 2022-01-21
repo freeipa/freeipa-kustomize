@@ -1,0 +1,5 @@
+kubeconfig
+kustomization.yaml
+Makefile
+pod.yaml
+README.md
