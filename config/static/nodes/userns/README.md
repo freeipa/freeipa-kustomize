@@ -5,14 +5,14 @@ and start using userns for our investigations.
 
 ```shell
 make -C config/static/nodes/userns configure
-kustomizebuild build config/static/nodes/userns | oc create -f -
+kustomize build config/static/nodes/userns | oc create -f -
 ```
 
 You can customize which nodes to update by:
 
 ```shell
 POOL="worker" make -C config/static/nodes/userns configure
-kustomizebuild build config/static/nodes/userns | oc create -f -
+kustomize build config/static/nodes/userns | oc create -f -
 ```
 
 > You can put `POOL` and `RPM_PACKAGES` variables at `private.mk` file, but do
