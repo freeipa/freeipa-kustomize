@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: freeipa
-  serviceName: "freeipa"
+  serviceName: freeipa
   replicas: 1
   template:
     metadata:
@@ -23,8 +23,6 @@ spec:
       - name: main
         image: workload
         imagePullPolicy: Always
-        # SYSTEMD_LOG_LEVEL=debug INIT_WRAPPER=1 DEBUG_TRACE=2 PASSWORD=Secret123 NAMESPACE=freeipa SYSTEMD_OFFLINE=1 podman run -it quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
-        # podman run -it -e SYSTEMD_LOG_LEVEL=debug -e INIT_WRAPPER=1 -e DEBUG_TRACE=2 -e PASSWORD=Secret123 -e NAMESPACE=freeipa -e SYSTEMD_OFFLINE=1  quay.io/freeipa/freeipa-openshift-container:freeipa-server no-exit ipa-server-install -U --realm APPS.MYKUBE.KARMALABS.COM --ca-subject="CN=freeipa-11111, O=APPS.MYKUBE.KARMALABS.COM" --no-ntp --no-sshd --no-ssh --verbose
         command:
         - /usr/local/sbin/init
         args:
@@ -32,12 +30,8 @@ spec:
         - ipa-server-install
         - -U
         # TODO Checkout this fields before deploy
-        # TODO Define variable IPA_SERVER_REALM
         - --realm
-        # - APPS.MYKUBE.KARMALABS.COM
         - $(IPA_SERVER_REALM)
-        # TODO Define variable IPA_SERVER_CA_SUBJECT
-        # - --ca-subject=CN=freeipa-SgD5xAV, O=APPS.MYKUBE.KARMALABS.COM
         - --ca-subject=$(IPA_SERVER_CA_SUBJECT)
         # TODO Define variable IPA_SERVER_DISABLE=ntp,sshd,ssh
         - --no-ntp
@@ -49,6 +43,8 @@ spec:
         #     configMapRef:
         #       name: config
 
+        # TODO Use envFrom instead of env, storing all the
+        #      environment variables in a ConfigMap.
         env:
         # - name: KRB5_TRACE
         #   value: /dev/console
@@ -63,17 +59,19 @@ spec:
         - name: IPA_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
+              name: $(SECRET_NAME)
               key: IPA_ADMIN_PASSWORD
-              name: freeipa
               optional: false
         - name: IPA_DM_PASSWORD
           valueFrom:
             secretKeyRef:
+              name: $(SECRET_NAME)
               key: IPA_DM_PASSWORD
-              name: freeipa
               optional: false
         - name: NAMESPACE
-          value: freeipa
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: IPA_SERVER_HOSTNAME
           value: $(IPA_SERVER_HOSTNAME)
         - name: container_uuid
@@ -83,9 +81,6 @@ spec:
         - name: SYSTEMD_NSPAWN_API_VFS_WRITABLE
           value: network
         ports:
-        - containerPort: 80
-          name: http-tcp
-          protocol: TCP
         - containerPort: 443
           name: https-tcp
           protocol: TCP
@@ -97,6 +92,7 @@ spec:
             cpu: 1500m
             memory: 3Gi
         securityContext:
+          allowPrivilegeEscalation: false
           capabilities:
             add:
             - CHOWN
@@ -163,8 +159,7 @@ spec:
               command: ["kill", "-RTMIN+3", "1"]
         tty: true
         volumeMounts:
-        - mountPath: /data
-          name: data
+        # freeipa-data to be completed by the patches
         - mountPath: /tmp
           name: systemd-tmp
         - mountPath: /var/run
@@ -172,17 +167,16 @@ spec:
         - mountPath: /var/run/dirsrv
           name: systemd-var-dirsrv
       volumes:
-      - name: data
-        emptyDir: {}
-      - emptyDir:
+      # freeipa-data volume to be completed by the patch for ephemeral only
+      - name: systemd-var-run
+        emptyDir:
           medium: Memory
-        name: systemd-var-run
-      - emptyDir:
+      - name: systemd-var-dirsrv
+        emptyDir:
           medium: Memory
-        name: systemd-var-dirsrv
-      - emptyDir:
+      - name: systemd-run-rpcbind
+        emptyDir:
           medium: Memory
-        name: systemd-run-rpcbind
-      - emptyDir:
+      - name: systemd-tmp
+        emptyDir:
           medium: Memory
-        name: systemd-tmp

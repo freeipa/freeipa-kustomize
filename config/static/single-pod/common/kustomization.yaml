@@ -1,8 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: freeipa
-
 resources:
 - service-https.yaml
 - route-https.yaml
@@ -17,12 +15,6 @@ secretGenerator:
   - secrets.properties
   name: freeipa
   type: Opaque
-
-# generators:
-#   - 
-
-# transformers:
-#   -
 
 vars:
 - fieldref:
@@ -49,3 +41,8 @@ vars:
 
 configurations:
 - kustomizeconfig.yaml
+
+images:
+- name: workload
+  newName: quay.io/freeipa/freeipa-openshift-container
+  newTag: latest

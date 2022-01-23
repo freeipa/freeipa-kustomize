@@ -3,4 +3,4 @@ include ../../binaries.mk
 
 .PHONY: configure
 configure:
-	@$(KUSTOMIZE) edit set namespace $(OCP_NAMESPACE)
+	-oc create -f scc.yaml
