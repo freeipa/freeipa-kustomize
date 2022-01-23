@@ -12,7 +12,7 @@ Variables:
     By default `config/static/single-pod` is used if nothing is specified.
   OCP_NAMESPACE
     The namespace where the resources will be created.
-    By default `freeipa` is used is used if nothing is specified.
+    By default `freeipa` is used if nothing is specified.
   OCP_IMAGE
     Allow to customize the workload to be used.
     By default it is 'quay.io/freeipa/freeipa-openshift-container:freeipa-server'

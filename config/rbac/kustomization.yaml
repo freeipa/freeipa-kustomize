@@ -9,4 +9,3 @@ resources:
 - workload_role_binding.yaml
 - controller_role.yaml
 - controller_role_binding.yaml
-namespace: test-freeipa

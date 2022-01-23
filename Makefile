@@ -42,7 +42,7 @@ ocp-create: check-kustomize check-ocp-config
 	oc project $(OCP_NAMESPACE)
 	$(MAKE) -C config/rbac configure
 	$(MAKE) -C $(OCP_CONFIG) configure
-	$(KUSTOMIZE) build config/rbac | oc create -f -
+	$(KUSTOMIZE) build config/rbac | oc create -f - --namespace=$(OCP_NAMESPACE)
 	$(KUSTOMIZE) build $(OCP_CONFIG) | oc create -f - --as=system:serviceaccount:$(OCP_NAMESPACE):freeipa-controller
 
 
@@ -57,8 +57,14 @@ ocp-build: check-ocp-config check-kustomize
 .PHONY: ocp-delete
 ocp-delete:
 	-$(KUSTOMIZE) build $(OCP_CONFIG) | oc delete -f - --as=system:serviceaccount:$(OCP_NAMESPACE):freeipa-controller
-	-$(KUSTOMIZE) build config/rbac | oc delete -f -
+	-$(KUSTOMIZE) build config/rbac | oc delete -f - --namespace=$(OCP_NAMESPACE)
 
 
 .PHONY: ocp-recreate
 ocp-recreate: ocp-delete ocp-create
+
+
+TESTS_E2E_LIST ?= $(wildcard tests/e2e/*.bats)
+.PHONY: test-e2e
+test-e2e:
+	./tests/lib/bats/bin/bats $(TESTS_E2E_LIST)

@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: freeipa
+spec:
+  template:
+    spec:
+      containers:
+      - name: main
+        volumeMounts:
+        - name: freeipa-data
+          mountPath: /data
+      volumes:
+      - name: data
+        emptyDir: {}
+
+  volumeClaimTemplates:
+  - metadata:
+      name: freeipa-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 10Gi

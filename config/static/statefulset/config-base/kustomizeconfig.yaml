@@ -1,0 +1,8 @@
+---
+varReference:
+  - kind: StatefulSet
+    path: spec/template/spec/containers/args
+  # - kind: StatefulSet
+  #   path: spec/template/spec/containers/env/value
+  - kind: StatefulSet
+    path: spec/template/spec/containers/env/valueFrom/secretKeyRef/name
