@@ -1,9 +1,9 @@
 include ../../../../variables.mk
 include ../../../../binaries.mk
 
-SINGLEPOD_BASEDOMAIN := $(shell oc get dnses.config.openshift.io/cluster -o json | jq -r .spec.baseDomain )
-SINGLEPOD_REALM := APPS.$(shell tr '[:lower:]' '[:upper:]' <<< "$(SINGLEPOD_BASEDOMAIN)" )
-SINGLEPOD_HOSTNAME := $(OCP_NAMESPACE).apps.$(SINGLEPOD_BASEDOMAIN)
+SINGLEPOD_INGRESSDOMAIN := $(shell oc get ingresses.config/cluster -o jsonpath='{.spec.domain}' )
+SINGLEPOD_REALM := $(shell tr '[:lower:]' '[:upper:]' <<< "$(SINGLEPOD_INGRESSDOMAIN)" )
+SINGLEPOD_HOSTNAME := $(OCP_NAMESPACE).$(SINGLEPOD_INGRESSDOMAIN)
 SINGLEPOD_CA_SUBJECT := CN=freeipa-$(shell date +%Y%m%d%H%M%S ), O=$(SINGLEPOD_REALM)
 SINGLEPOD_ENV_FILE := env.properties
 
@@ -22,4 +22,3 @@ configure:
 	@true > $(SINGLEPOD_SECRETS_FILE)
 	@echo "IPA_SERVER_PASSWORD=$(SINGLEPOD_PASSWORD)" >> $(SINGLEPOD_SECRETS_FILE)
 	@$(KUSTOMIZE) edit set namespace $(OCP_NAMESPACE)
-
