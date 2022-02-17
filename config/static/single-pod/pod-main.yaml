@@ -11,7 +11,7 @@ metadata:
 spec:
   dnsPolicy: ClusterFirst
   restartPolicy: Always
-  serviceAccount: freeipa
+  serviceAccountName: freeipa-workload
   containers:
   - image: workload
     imagePullPolicy: IfNotPresent
@@ -41,7 +41,7 @@ spec:
     #   - name: IPA_SERVER_HOSTNAME
     #     configMapRef:
     #       name: config
-          
+
     env:
     - name: KUBERNETES
       value: "1"
