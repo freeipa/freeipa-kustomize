@@ -13,6 +13,9 @@ allowHostIPC: false
 allowHostNetwork: false
 allowHostPID: false
 allowHostPorts: false
+allowHostDirVolumePlugin: false
+# If SYS_ADMIN is not removed, the value of the allowPrivilegeEscalation
+# attribute will be always true
 allowPrivilegeEscalation: true
 allowPrivilegedContainer: false
 allowedCapabilities:
@@ -35,7 +38,7 @@ allowedCapabilities:
   - "SYS_ADMIN"
   - "SYS_RESOURCE"
   - "MKNOD"
-allowedUnsafeSysctls:
+allowedUnsafeSysctls: []
 defaultAddCapabilities:
   # Default capabilities anyuid
   - "CHOWN"
@@ -58,7 +61,7 @@ fsGroup:
   type: RunAsAny
 priority: 20
 readOnlyRootFilesystem: false
-requiredDropCapabilities: null
+requiredDropCapabilities: []
 runAsUser:
   type: RunAsAny
 seLinuxContext:

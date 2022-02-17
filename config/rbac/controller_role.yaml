@@ -1,9 +1,17 @@
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: freeipa
+  name: freeipa-controller
 rules:
+  - apiGroups: [""]
+    resources:
+      - "serviceaccounts"
+    resourceNames:
+      - "freeipa-controller"
+    verbs:
+      - "use"
+
   # Normal permissions for using the general resources.
   - apiGroups:
       - ""
@@ -12,21 +20,6 @@ rules:
     verbs:
       - "get"
       - "create"
-      - "update"
-      - "watch"
-      - "list"
-      - "delete"
-
-  - apiGroups:
-      - ""
-    resources:
-      - "pods"
-    verbs:
-      - "get"
-      - "create"
-      - "update"
-      - "watch"
-      - "list"
       - "delete"
 
   - apiGroups:
@@ -34,11 +27,11 @@ rules:
     resources:
       - "services"
     verbs:
-      - "get"
+  #     - "get"
       - "create"
-      - "update"
-      - "watch"
-      - "list"
+  #     - "update"
+  #     - "watch"
+  #     - "list"
       - "delete"
 
   - apiGroups:
@@ -46,11 +39,11 @@ rules:
     resources:
       - "configmaps"
     verbs:
-      - "get"
+  #     - "get"
       - "create"
-      - "update"
-      - "watch"
-      - "list"
+  #     - "update"
+  #     - "watch"
+  #     - "list"
       - "delete"
 
   - apiGroups:
@@ -58,11 +51,11 @@ rules:
     resources:
       - "routes"
     verbs:
-      - "get"
+      # - "get"
       - "create"
-      - "update"
-      - "watch"
-      - "list"
+      # - "update"
+      # - "watch"
+      # - "list"
       - "delete"
   # Fix 'spec.host: Forbidden: you do not have permission to set the host field
   # of the route'
@@ -73,30 +66,6 @@ rules:
       - "routes/custom-host"
     verbs:
       - "create"
-      - "delete"
-
-  - apiGroups: [""]
-    resources:
-      - "serviceaccounts"
-    verbs:
-      - "use"
-
-  - apiGroups: ["security.openshift.io"]
-    resources:
-      - "securitycontextconstraints"
-    verbs:
-      - "use"
-
-  - apiGroups:
-      - ""
-    resources:
-      - "persistentvolumeclaims"
-    verbs:
-      - "get"
-      - "create"
-      - "update"
-      - "watch"
-      - "list"
       - "delete"
 
   - apiGroups:

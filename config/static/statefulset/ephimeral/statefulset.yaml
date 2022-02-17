@@ -18,8 +18,7 @@ spec:
     spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      serviceAccount: freeipa
-      automountServiceAccountToken: true
+      serviceAccountName: freeipa-workload
       containers:
       - image: workload
         imagePullPolicy: IfNotPresent
@@ -49,7 +48,7 @@ spec:
         #   - name: IPA_SERVER_HOSTNAME
         #     configMapRef:
         #       name: config
-              
+
         env:
         # - name: KRB5_TRACE
         #   value: /dev/console

@@ -39,10 +39,11 @@ help:
 .PHONY: ocp-create
 ocp-create: check-kustomize check-ocp-config
 	-oc new-project $(OCP_NAMESPACE)
+	oc project $(OCP_NAMESPACE)
 	$(MAKE) -C config/rbac configure
 	$(MAKE) -C $(OCP_CONFIG) configure
 	$(KUSTOMIZE) build config/rbac | oc create -f -
-	$(KUSTOMIZE) build $(OCP_CONFIG) | oc create -f - --as=freeipa
+	$(KUSTOMIZE) build $(OCP_CONFIG) | oc create -f - --as=system:serviceaccount:$(OCP_NAMESPACE):freeipa-controller
 
 
 .PHONY: ocp-build
@@ -55,10 +56,9 @@ ocp-build: check-ocp-config check-kustomize
 
 .PHONY: ocp-delete
 ocp-delete:
-	-$(KUSTOMIZE) build $(OCP_CONFIG) | oc delete -f - --as=freeipa
+	-$(KUSTOMIZE) build $(OCP_CONFIG) | oc delete -f - --as=system:serviceaccount:$(OCP_NAMESPACE):freeipa-controller
 	-$(KUSTOMIZE) build config/rbac | oc delete -f -
 
 
 .PHONY: ocp-recreate
 ocp-recreate: ocp-delete ocp-create
-

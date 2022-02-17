@@ -3,9 +3,10 @@ kind: Kustomization
 
 resources:
 - scc.yaml
-- user.yaml
-- serviceaccount.yaml
-- user_role.yaml
-- user_role_binding.yaml
-
-namespace: freeipa
+- sa-controller.yaml
+- sa-workload.yaml
+- workload_role.yaml
+- workload_role_binding.yaml
+- controller_role.yaml
+- controller_role_binding.yaml
+namespace: test-freeipa
