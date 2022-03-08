@@ -15,7 +15,7 @@ spec:
       - name: "install-${RPM_PKG_NAME}.service"
         enabled: true
         # For getting the logs run:
-        # $ oc adm node-logs node/NODE -u install-runc
+        # $ oc adm node-logs node/NODE -u install-${RPM_PKG_NAME}
         contents: |
           [Unit]
           Description=Install custom runc
